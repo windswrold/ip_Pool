@@ -1,16 +1,15 @@
-# 本程序基于python3.7开发,适用于Python3系列
-#适用于刷阅读，刷访问量，刷推广等内容，随机匹配浏览器，随机IP访问
-# 更新时间：2020.08.13
-# 作者；ck
+from fake_useragent import UserAgent
 import requests
 import re
-sdurl = '修改为你要刷的链接'
+sdurl = 'https://yw.gangguwang.com/share?id=268314'
+ipsource = 'https://ip.jiangxianli.com';
+ua = UserAgent()
 def run():
     try:
         for f in range(20000):
             f = f + 1
             f = str(f)
-            url = 'https://ip.jiangxianli.com/?page=' + f
+            url =ipsource + '/?page=' + f
             heands = {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.58'
             }
@@ -25,9 +24,8 @@ def run():
                 try:
                     ixp = {'http': ipps[n]}
                     print(ixp)
-                    uag = requests.get(url='http://nmsl8.com/getUA').text
                     heands = {
-                        'User-Agent': uag
+                        'User-Agent': ua.random
                     }
                     print(heands)
                     requests.get(sdurl, proxies=ixp, headers=heands, timeout=3)
